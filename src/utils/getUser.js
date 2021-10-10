@@ -1,9 +1,9 @@
 import {firestore} from '../firebase/config';
 
-export const getUser = (id) => {
-    firestore.collection("users").doc(id).get()
+export const getUser = async (id) => {
+    return firestore.collection("users").doc(id).get()
     .then(res => {
-        return {...res.data(),id:res.id}
+        return {...res.data()}
     })
     .catch(err => {
         console.log(err);

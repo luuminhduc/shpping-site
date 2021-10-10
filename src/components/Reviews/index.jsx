@@ -45,9 +45,13 @@ const Reviews = ({ productId }) => {
   };
 
   const chartItem = (el) => {
-    let count = 0;
-    const ratingArr = reviewList.map((e) => e.rating).filter((e) => e == el);
-    const percent = (ratingArr.length / reviewList.length) * 100;
+    let percent = 0;
+    let ratingArr = [];
+    if (reviewList.length > 0) {
+      const ratingArr = reviewList.map((e) => e.rating).filter((e) => e == el);
+      percent = (ratingArr.length / reviewList.length) * 100;
+    }
+
     return (
       <div className="flex flex-row justify-between items-center mb-3" key={el}>
         <div className="w-14 text-sm">{el} stars</div>

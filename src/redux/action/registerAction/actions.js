@@ -3,15 +3,20 @@ import * as actions from './actionTypes';
 export const registerRequest = (user,history) => async (dispatch,getState,{getFirebase,getFirestore})  => {
     const firebase = getFirebase();
     const firestore = getFirestore();
-    const {email,password,userName} = user;
-    firebase.auth().createUserWithEmailAndPassword(email,password)
-    .then((res) => {
+    const {email,password} = user;
+    // firestore.collection('users').doc("NAncAT1s1M159AHYqO4v").set({
+    //     email:"Ngu",
+    //     avatar:""
+    // }).then(() => {
+    //     console.log("Done");
+    // })
+    firebase.auth().createUserWithEmailAndPassword(email,password).then((res) => {
         firestore.collection('users').doc(res.user.uid).set({
             avatar:'',
             email,
-            userName,
             phoneNumber:""
         }).then(() => {
+            console.log("Done");
             dispatch(registerSuccess(history))
         });
     })
