@@ -15,7 +15,7 @@ const Container = ({ children }) => {
   return (
     <div>
       <Header />
-      <div className="mt-5 pb-10">
+      <div className="mt-28 pb-10">
         <div className="mx-auto text-black lg:max-w-6xl bg md:max-w-3xl w-full px-3 md:px-0">
           {children}
         </div>

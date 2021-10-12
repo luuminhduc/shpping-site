@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Product from './pages/Product';
 import Container from './components/Container';
+import Cart from './pages/Cart';
 
 const rrf = {
   config,
@@ -46,7 +47,12 @@ const App = () => {
             <Route exact path="/products/:productId">
               <Container>
               <Product/>
+              </Container>
 
+            </Route>
+            <Route exact path="/cart">
+              <Container>
+              <Cart/>
               </Container>
 
             </Route>

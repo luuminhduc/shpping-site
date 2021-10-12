@@ -1,17 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import Alert from "../../components/Alert";
 import ProductList from "../../components/ProductList";
 import Reviews from "../../components/Reviews";
 import Stars from "../../components/Stars";
 import { firestore } from "../../firebase/config";
+import { addToCart } from "../../redux/action/cartAction/actions";
+import { checkItemInCart } from "../../utils/cartUtil";
 const Product = () => {
   const params = useParams();
   const { productId } = params;
 
   const [product, setProduct] = useState("");
   const { reviewList } = useSelector((state) => state.reviewReducer);
+
+  const { cartList } = useSelector((state) => state.cartReducer);
+  const dispatch = useDispatch();
+
+  const onAddToCart = () => {
+    if (cartList.length > 0) {
+      checkItemInCart({ item: product, cartList, dispatch });
+    } else {
+      dispatch(addToCart(product));
+    }
+  };
 
   const fetchProduct = async () => {
     try {
@@ -61,7 +74,10 @@ const Product = () => {
               </span>
             </div>
             <p className="text-xl font-bold mb-3">{price} $</p>
-            <button className="bg-blue-600 font-semibold text-white px-4 py-2 rounded-3xl">
+            <button
+              onClick={onAddToCart}
+              className="bg-blue-600 font-semibold text-white px-4 py-2 rounded-3xl"
+            >
               Add to cart
             </button>
             <div className="mt-5 border-t text-sm border-solid border-gray-100 pt-5">
