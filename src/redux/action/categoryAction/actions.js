@@ -1,7 +1,4 @@
 import * as actions from './actionTypes';
-import firebase from '../../../firebase/config';
-
-
 
 export const fetchCategoryList = () => async (dispatch, getState, {getFirestore}) => {
     const firestore = getFirestore();

@@ -7,7 +7,7 @@ const CartIcon = () => {
 
   return (
     <NavLink to="/cart">
-      <p className="ml-3 relative">
+      <div className="ml-3 relative">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
@@ -25,7 +25,7 @@ const CartIcon = () => {
         <p className="absolute -top-4 h-6 w-6 flex justify-center items-center rounded-full text-sm bg-yellow-500 text-black -right-3">
           {cartList.length}
         </p>
-      </p>
+      </div>
     </NavLink>
   );
 };

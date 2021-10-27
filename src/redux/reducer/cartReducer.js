@@ -28,7 +28,7 @@ export default function cartReducer(state=initialState,action) {
             const newList = [...state.cartList];
             const index = newList.findIndex(el => el.productId === productId);
             if(isAdd) {
-                newList[index].quantity++;
+                if(newList[index].inventory - +newList[index].quantity > 0) newList[index].quantity++;
             }else{
                 if(newList[index].quantity > 1) {
                     newList[index].quantity--;
@@ -36,6 +36,11 @@ export default function cartReducer(state=initialState,action) {
             }
             updateToLocalStorage(newList);
             return {...state,cartList:newList}
+        }
+        case actions.REMOVE_ALL:{
+            const newList = [];
+            updateToLocalStorage(newList);
+            return{...state,cartList:newList}
         }
         default: return state;
     }

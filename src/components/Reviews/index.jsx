@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchReviewList,
@@ -14,7 +14,7 @@ const Reviews = ({ productId }) => {
 
   useEffect(() => {
     if (productId) dispatch(fetchReviewList(productId));
-  }, [productId]);
+  }, [productId, dispatch]);
 
   const getRating = () => {
     let num = 0;
@@ -48,7 +48,7 @@ const Reviews = ({ productId }) => {
     let percent = 0;
     let ratingArr = [];
     if (reviewList.length > 0) {
-      const ratingArr = reviewList.map((e) => e.rating).filter((e) => e == el);
+      ratingArr = reviewList.map((e) => e.rating).filter((e) => e === el);
       percent = (ratingArr.length / reviewList.length) * 100;
     }
 

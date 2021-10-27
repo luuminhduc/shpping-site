@@ -4,22 +4,28 @@ import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { addToCart } from "../../redux/action/cartAction/actions";
 import { checkItemInCart } from "../../utils/cartUtil";
+import { convertMoney } from "../../utils/money";
 
 const ProductItem = ({ item }) => {
-  const { photo, price, title, id } = item;
+  const { photo, price, title, id, inventory } = item;
   const { cartList } = useSelector((state) => state.cartReducer);
   const dispatch = useDispatch();
 
   const onAddToCart = () => {
-    if (cartList.length > 0) {
-      checkItemInCart({ item, cartList, dispatch });
-    } else {
-      dispatch(addToCart(item));
+    if (+inventory > 0) {
+      if (cartList.length > 0) {
+        checkItemInCart({ item, cartList, dispatch });
+      } else {
+        dispatch(addToCart(item));
+      }
     }
   };
 
   return (
-    <div>
+    <div
+      // onClick={() => window.scrollTo(0, 0)}
+      className="hover:scale-105 transform"
+    >
       <NavLink to={`/products/${id}`}>
         <img src={photo} alt="" />
       </NavLink>
@@ -31,7 +37,7 @@ const ProductItem = ({ item }) => {
         Add
       </button>
       <div className="mt-3">
-        <p className="font-bold">${price}</p>
+        <p className="font-bold">${convertMoney(price)}</p>
         <p className="font-light">{title}</p>
       </div>
     </div>

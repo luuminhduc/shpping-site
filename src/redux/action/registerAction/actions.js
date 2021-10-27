@@ -3,7 +3,7 @@ import * as actions from './actionTypes';
 export const registerRequest = (user,history) => async (dispatch,getState,{getFirebase,getFirestore})  => {
     const firebase = getFirebase();
     const firestore = getFirestore();
-    const {email,password} = user;
+    const {email,password,name} = user;
     // firestore.collection('users').doc("NAncAT1s1M159AHYqO4v").set({
     //     email:"Ngu",
     //     avatar:""
@@ -14,7 +14,15 @@ export const registerRequest = (user,history) => async (dispatch,getState,{getFi
         firestore.collection('users').doc(res.user.uid).set({
             avatar:'',
             email,
-            phoneNumber:""
+            name,
+            address:{
+                city:"",
+                district:"",
+                ward:"",
+                address:"",
+                phoneNumber:"",
+
+            }
         }).then(() => {
             console.log("Done");
             dispatch(registerSuccess(history))

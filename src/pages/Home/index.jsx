@@ -2,12 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Alert from "../../components/Alert";
 import Banner from "../../components/Banner";
+import CategoryList from "../../components/CategoryList";
 
 import ProductList from "../../components/ProductList";
 
 const Home = () => {
   const { productList } = useSelector((state) => state.productReducer);
-  const { categoryList } = useSelector((state) => state.categoryReducer);
 
   return (
     <div className="">
@@ -18,14 +18,8 @@ const Home = () => {
         }}
       />
       <Banner />
-      <div className="flex flex-wrap mt-14 mb-16 justify-center items-center">
-        {categoryList.map((el, i) => (
-          <div className="bg-gray-100 px-4 hover:bg-blue-600 hover:text-white py-2 rounded cursor-pointer mx-3">
-            {el.name}
-          </div>
-        ))}
-      </div>
-      <ProductList list={productList} />
+      <CategoryList />
+      <ProductList cols={6} list={productList} />
     </div>
   );
 };

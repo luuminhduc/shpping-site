@@ -1,4 +1,3 @@
-import { storage } from '../../../firebase/config';
 import  * as actions from './actionTypes';
 
 export const fetchProductList = () => async (dispatch, getState, {getFirestore}) => {
@@ -11,6 +10,13 @@ export const fetchProductList = () => async (dispatch, getState, {getFirestore})
             payload:docs,
         })
     })
+}
+
+export const searchingProduct = (term) => {
+    return{
+        type: actions.SEARCHING_PRODUCT,
+        payload:term,
+    }
 }
 
 

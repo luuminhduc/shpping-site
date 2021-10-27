@@ -6,6 +6,8 @@ import productReducer from "./productReducer";
 import registerReducer from "./registerReducer";
 import reviewReducer from "./reviewReducer";
 import cartReducer from "./cartReducer";
+import orderReducer from "./orderReducer";
+import modalReducer from "./modalReducer";
 
 export default combineReducers({
     firebaseReducer,
@@ -15,4 +17,6 @@ export default combineReducers({
     productReducer,
     reviewReducer,
     cartReducer,
+    orderReducer,
+    modalReducer,
 })

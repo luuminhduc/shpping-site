@@ -11,6 +11,11 @@ import Register from './pages/Register';
 import Product from './pages/Product';
 import Container from './components/Container';
 import Cart from './pages/Cart';
+import Shipping from './pages/Shipping';
+import Payment from './pages/Payment';
+import Account from './pages/Account';
+import SearchResult from './pages/SearchResult';
+import NoMatch from './pages/NoMatch';
 
 const rrf = {
   config,
@@ -55,6 +60,35 @@ const App = () => {
               <Cart/>
               </Container>
 
+            </Route>
+            <Route exact path="/checkout/shipping">
+              <Container>
+              <Shipping/>
+              </Container>
+
+            </Route>
+            <Route exact path="/checkout/payment">
+              <Container>
+              <Payment/>
+              </Container>
+
+            </Route>
+            <Route exact path="/account/:part">
+              <Container>
+              <Account/>
+              </Container>
+
+            </Route>
+            <Route exact path="/search">
+              <Container>
+              <SearchResult/>
+              </Container>
+
+            </Route>
+            <Route path="*">
+              <Container>
+                <NoMatch/>
+              </Container>
             </Route>
           </Switch>
           </BrowserRouter>

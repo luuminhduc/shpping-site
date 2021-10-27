@@ -2,7 +2,7 @@ import * as actions from './actionTypes';
 
 export const addToCart = (item) => {
     const {title,price,inventory,photo,id} = item;
-    const cartItem = {title,price,inventory,photo,quantity:1,productId:id};
+    const cartItem = {title,price,inventory:+inventory,photo,quantity:1,productId:id};
     return{
         type: actions.ADD_TO_CART,
         payload: cartItem,
@@ -21,6 +21,12 @@ export const updateQuantity = (data) => {
     return{
         type: actions.UPDATE_QUANTITY,
         payload:data,
+    }
+}
+
+export const removeAll = () => {
+    return {
+        type: actions.REMOVE_ALL,
     }
 }
 

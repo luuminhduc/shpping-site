@@ -43,6 +43,25 @@ const Register = () => {
 
         <form onSubmit={handleSubmit((data) => onSubmit(data))}>
           <div className="mb-3 flex flex-col justify-start items-start">
+            <label className="text-sm font-semibold">Name</label>
+
+            <input
+              {...register("name", { required: true })}
+              type="text"
+              className={`p-3 focus:border-sky-500 rounded ${
+                errors.name
+                  ? "border border-solid border-red-500"
+                  : "border border-solid border-gray-300"
+              } focus:outline-none w-full`}
+              placeholder="Email"
+            />
+            {errors.name && errors.name.type === "required" && (
+              <small className="text-red-500 text-sm">
+                Name can not be blank
+              </small>
+            )}
+          </div>
+          <div className="mb-3 flex flex-col justify-start items-start">
             <label className="text-sm font-semibold">Email</label>
 
             <input

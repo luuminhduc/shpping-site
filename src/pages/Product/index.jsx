@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import Alert from "../../components/Alert";
-import ProductList from "../../components/ProductList";
 import Reviews from "../../components/Reviews";
+import SimilarList from "../../components/SimilarList";
 import Stars from "../../components/Stars";
 import { firestore } from "../../firebase/config";
 import { addToCart } from "../../redux/action/cartAction/actions";
@@ -19,23 +19,24 @@ const Product = () => {
   const dispatch = useDispatch();
 
   const onAddToCart = () => {
-    if (cartList.length > 0) {
-      checkItemInCart({ item: product, cartList, dispatch });
-    } else {
-      dispatch(addToCart(product));
-    }
-  };
-
-  const fetchProduct = async () => {
-    try {
-      const res = await firestore.collection("products").doc(productId).get();
-      setProduct({ ...res.data(), id: res.id });
-    } catch (err) {
-      console.log(err);
+    if (+product.inventory > 0) {
+      if (cartList.length > 0) {
+        checkItemInCart({ item: product, cartList, dispatch });
+      } else {
+        dispatch(addToCart(product));
+      }
     }
   };
 
   useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await firestore.collection("products").doc(productId).get();
+        setProduct({ ...res.data(), id: res.id });
+      } catch (err) {
+        console.log(err);
+      }
+    };
     if (productId) fetchProduct();
   }, [productId]);
 
@@ -49,7 +50,7 @@ const Product = () => {
   };
 
   const renderProduct = () => {
-    const { photo, title, price, category } = product;
+    const { photo, title, price, inventory } = product;
     return (
       <div className="md:grid mt-5 grid-cols-10">
         <div className="col-span-6">
@@ -73,6 +74,7 @@ const Product = () => {
                 reviews
               </span>
             </div>
+            <p className="mb-3">{inventory} items left</p>
             <p className="text-xl font-bold mb-3">{price} $</p>
             <button
               onClick={onAddToCart}
@@ -157,10 +159,16 @@ const Product = () => {
 
   const renderDescription = () => {
     const { description } = product;
+    const arr = description.split(".");
     return (
       <div className="mt-5">
         <h3 className="font-bold text-xl mb-3">About this product</h3>
-        <p className="text-sm">{description}</p>
+        {arr.length > 0 &&
+          arr.map((el, i) => (
+            <p key={i} className="text-sm mb-1">
+              {el}
+            </p>
+          ))}
       </div>
     );
   };
@@ -176,6 +184,9 @@ const Product = () => {
           {renderProduct()}
           {renderDescription()}
           <div className="mt-10"></div>
+
+          <SimilarList product={product} />
+
           <Reviews productId={product.id} />
         </React.Fragment>
       )}
